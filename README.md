@@ -47,7 +47,7 @@ totals. No query params; entirely driven by
 
 ### `GET /api/badge/creator`
 
-Card (840×116, one slim row): your avatar and name under a "CREATOR" label,
+Card (840×116 layout, served at 2x as 1680×232, one slim row): your avatar and name under a "CREATOR" label,
 Modrinth and CurseForge lifetime totals, the combined total, and the split
 along the bottom edge. Meant as the last thing in a mod's README, wrapped in
 a link. No query params; same config and numbers as the profile card.

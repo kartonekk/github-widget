@@ -20,6 +20,10 @@ const H = 116;
 const PAD = 28;
 const AV = 60;
 const BAR_H = 5;
+// Layout stays at W×H; the SVG just declares double that size. Mod page
+// descriptions go through image proxies that rasterize at the declared size,
+// so this is what keeps them sharp. Every host scales it down to fit.
+const SCALE = 2;
 
 export function renderCreatorCard(opts: CreatorCardOptions): string {
   const value = formatCard(opts.totalDownloads);
@@ -70,7 +74,7 @@ export function renderCreatorCard(opts: CreatorCardOptions): string {
 
   const decor = renderCornerSquares(cornerSquares(opts.seed, W, H), opts.accent);
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W * SCALE}" height="${H * SCALE}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
 <title>${esc(label)}</title>
 <defs>
 <linearGradient id="crbg" x1="0" y1="0" x2="1" y2="1">
