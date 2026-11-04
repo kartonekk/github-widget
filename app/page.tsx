@@ -9,9 +9,17 @@ export default function Home() {
 
   const origin = typeof window !== "undefined" ? window.location.origin : "https://your-deployment.vercel.app";
   const profileBadgeUrl = `${origin}/api/badge/profile`;
+  const creatorBadgeUrl = `${origin}/api/badge/creator`;
+  const creatorLinkUrl = "https://github.com/kartonekk";
 
   const profileMarkdown = useMemo(() => `![Total Downloads](${profileBadgeUrl})`, [profileBadgeUrl]);
   const profileHtml = useMemo(() => `<img src="${profileBadgeUrl}" alt="Total Downloads">`, [profileBadgeUrl]);
+  const creatorMarkdown = useMemo(
+    () => `## Creator
+
+[![Lifetime downloads](${creatorBadgeUrl})](${creatorLinkUrl})`,
+    [creatorBadgeUrl]
+  );
 
   const copy = async (key: string, text: string) => {
     await navigator.clipboard.writeText(text);
@@ -40,6 +48,19 @@ export default function Home() {
         <pre>{profileHtml}</pre>
         <button onClick={() => copy("profile-html", profileHtml)}>
           {copied === "profile-html" ? "Copied!" : "Copy HTML"}
+        </button>
+      </div>
+
+      <div className="panel">
+        <label>Creator card — footer for a mod&apos;s README, lifetime downloads</label>
+        <div className="preview">
+          <a href={creatorLinkUrl} target="_blank" rel="noreferrer">
+            <img src={creatorBadgeUrl} alt="Lifetime downloads" />
+          </a>
+        </div>
+        <pre>{creatorMarkdown}</pre>
+        <button onClick={() => copy("creator-md", creatorMarkdown)}>
+          {copied === "creator-md" ? "Copied!" : "Copy Markdown"}
         </button>
       </div>
 
@@ -93,6 +114,7 @@ export default function Home() {
       <div className="panel">
         <label>API reference</label>
         <pre>{`GET /api/badge/profile         (config-driven, see lib/projects.config.ts — no query params)
+GET /api/badge/creator         (config-driven footer for mod READMEs — no query params)
 GET /api/badge/mod?id=<id>     (a mod id from lib/projects.config.ts)
 GET /api/badge/org?login=<org> (any public GitHub org login)`}</pre>
       </div>

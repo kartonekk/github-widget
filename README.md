@@ -4,11 +4,13 @@ Dynamically generated SVG cards for a GitHub profile README:
 
 - a profile card — total Modrinth + CurseForge downloads with the
   per-platform split
+- a creator card — a slim footer for mod READMEs with lifetime downloads
 - a card per mod, drawn over that mod's own promotional art
 - an organization card (one per org) with its own accent and showcase
 
 ```md
 ![Total Downloads](https://your-deployment.vercel.app/api/badge/profile)
+[![Lifetime downloads](https://your-deployment.vercel.app/api/badge/creator)](https://github.com/kartonekk)
 ![Head Locator](https://your-deployment.vercel.app/api/badge/mod?id=head-locator)
 [![Kart-Modding](https://your-deployment.vercel.app/api/badge/org?login=Kart-Modding)](https://github.com/Kart-Modding)
 [![Kart-Forks](https://your-deployment.vercel.app/api/badge/org?login=Kart-Forks)](https://github.com/Kart-Forks)
@@ -42,6 +44,13 @@ Card (840×176 — spans a README at ~1:1, dark gradient): your GitHub avatar an
 a bar splitting it between Modrinth and CurseForge, and both platform
 totals. No query params; entirely driven by
 `lib/projects.config.ts` (`displayName`, `githubUser`, `accent`, `projects`).
+
+### `GET /api/badge/creator`
+
+Card (840×116, one slim row): your avatar and name under a "CREATOR" label,
+Modrinth and CurseForge lifetime totals, the combined total, and the split
+along the bottom edge. Meant as the last thing in a mod's README, wrapped in
+a link. No query params; same config and numbers as the profile card.
 
 ### `GET /api/badge/mod?id=<id>`
 
